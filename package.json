@@ -16,12 +16,18 @@
     "react-dom": "17.0.1"
   },
   "devDependencies": {
+    "@babel/plugin-transform-react-jsx": "^7.12.17",
+    "@babel/plugin-transform-runtime": "^7.12.17",
+    "@babel/polyfill": "^7.12.1",
+    "@babel/preset-env": "^7.12.17",
+    "@babel/preset-react": "^7.12.13",
     "@wojtekmaj/enzyme-adapter-react-17": "^0.4.1",
     "babel-core": "^6.26.3",
     "babel-jest": "^26.6.3",
     "babel-preset-env": "^1.7.0",
     "babel-preset-react": "^6.24.1",
     "enzyme": "^3.11.0",
+    "identity-obj-proxy": "^3.0.0",
     "jest": "^26.6.3"
   }
 }

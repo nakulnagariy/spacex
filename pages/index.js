@@ -1,8 +1,8 @@
+import React from 'react'
 import { server } from '../config'
 import ArticleList from '../components/ArticleList'
 
 export default function Home({ articles }) {
-  console.log(articles)
   return (
     <div>
       <ArticleList articles={articles} />

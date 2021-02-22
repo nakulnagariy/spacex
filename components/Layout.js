@@ -1,3 +1,4 @@
+import React from 'react'
 import Nav from './Nav'
 import Meta from './Meta'
 import Header from './Header'

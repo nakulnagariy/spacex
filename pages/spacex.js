@@ -3,7 +3,7 @@ import { useRouter } from 'next/router'
 import Meta from '../components/Meta'
 import styles from '../styles/Spacex.module.css'
 
-let API_URL = `https://api.spaceXdata.com/v3/launches?limit=100`
+let API_URL = `https://api.spaceXdata.com/v3/launches?limit=10`
 
 const fetchData = async (api) => {
   const res = await fetch(api)

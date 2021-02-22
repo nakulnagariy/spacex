@@ -1,3 +1,4 @@
+import React from 'react'
 import ArticleItem from './ArticleItem'
 import articleStyles from '../styles/Article.module.css'
 
