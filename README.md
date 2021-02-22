@@ -2,9 +2,9 @@
 
 ![spacex launch program react project](./public/desktop.png 'Spacex program')
 
-![spacex launch program react project Mobile View](./public/mobile1.png 'Spacex program')
+![spacex launch program react project Mobile View](./public/mobile1.PNG 'Spacex program')
 
-![spacex launch program react project Mobile View](./public/mobile2.png 'Spacex program')
+![spacex launch program react project Mobile View](./public/mobile2.PNG 'Spacex program')
 
 # Tech Stack
 
