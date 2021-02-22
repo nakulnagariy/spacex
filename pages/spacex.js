@@ -3,7 +3,7 @@ import { useRouter } from 'next/router'
 import Meta from '../components/Meta'
 import styles from '../styles/Spacex.module.css'
 
-let API_URL = `https://api.spaceXdata.com/v3/launches?limit=10`
+let API_URL = `https://api.spaceXdata.com/v3/launches?limit=100`
 
 const fetchData = async (api) => {
   const res = await fetch(api)
@@ -15,13 +15,6 @@ const spacex = ({ missions }) => {
   const [allMissions, setallMissions] = useState(missions)
   const [launchYears, setLaunchYears] = useState()
   const [appliedFilters, setAppliedFilters] = useState([])
-  //   const getAllMissions = useCallback((updatedMission) => {
-  //     setallMissions(updatedMission)
-  //   }, [])
-
-  //   const getAppliedFilters = useCallback((updatedFilter) => {
-  //     setAppliedFilters(updatedFilter)
-  //   }, [])
 
   useEffect(() => {
     const missionYears =
