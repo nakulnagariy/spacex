@@ -19,7 +19,7 @@ For Ci/CD, i have used circle-ci & for deployment, used Heroku
 
 ### App link
 
-Open[https://nagariya-mern.herokuapp.com/](https://nagariya-mern.herokuapp.com/)
+Open[https://nagariya-spacex.herokuapp.com/](https://nagariya-spacex.herokuapp.com/)
 
 # To get start with project, follow the bellow steps
 
