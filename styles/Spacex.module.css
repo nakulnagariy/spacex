@@ -113,7 +113,6 @@
   flex-direction: column;
   border-radius: 10px;
   flex-basis: 22%;
-  flex-grow: 1;
   text-align: center;
 }
 
