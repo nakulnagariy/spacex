@@ -69,7 +69,7 @@ const spacex = ({ missions }) => {
             title={mission.mission_name}
           />
           <div className={styles.content}>
-            <span className={styles.contentTitle}>
+            <span className={styles.missionTitle}>
               {mission.mission_name}&nbsp;
             </span>
             #{mission.flight_number}
@@ -102,12 +102,27 @@ const spacex = ({ missions }) => {
     )
   }
 
+  const getSelectedButton = (param) => {
+    const selected = appliedFilters.filter(
+      (selectedBtn) => selectedBtn.filter === param
+    )
+    let selectedBtn = ''
+    if (selected && selected.length > 0) {
+      selectedBtn = selected[0].filterWith
+    } else {
+      return null
+    }
+    return selectedBtn
+  }
+
   const renderMissionYears = () => {
     if (launchYears && launchYears.length > 0) {
       return launchYears.map((year) => (
         <button
           key={year}
-          className={styles.button}
+          className={`${styles.button} ${
+            year == getSelectedButton('launch_year') ? styles.selected : ''
+          }`}
           onClick={() => filterResults('launch_year', year)}
         >
           {year}
@@ -115,6 +130,7 @@ const spacex = ({ missions }) => {
       ))
     }
   }
+
   return (
     <div>
       <Meta title='Space-X' />
@@ -137,13 +153,21 @@ const spacex = ({ missions }) => {
               <div className={styles.row}>
                 <div className={styles.buttonDoubleColumn}>
                   <button
-                    className={styles.button}
+                    className={`${styles.button} ${
+                      true === getSelectedButton('launch_success')
+                        ? styles.selected
+                        : ''
+                    }`}
                     onClick={() => filterResults('launch_success', true)}
                   >
                     True
                   </button>
                   <button
-                    className={styles.button}
+                    className={`${styles.button} ${
+                      false === getSelectedButton('launch_success')
+                        ? styles.selected
+                        : ''
+                    }`}
                     onClick={() => filterResults('launch_success', false)}
                   >
                     False
@@ -156,13 +180,21 @@ const spacex = ({ missions }) => {
               <div className={styles.row}>
                 <div className={styles.buttonDoubleColumn}>
                   <button
-                    className={styles.button}
+                    className={`${styles.button} ${
+                      true === getSelectedButton('land_success')
+                        ? styles.selected
+                        : ''
+                    }`}
                     onClick={() => filterResults('land_success', true)}
                   >
                     True
                   </button>
                   <button
-                    className={styles.button}
+                    className={`${styles.button} ${
+                      false === getSelectedButton('land_success')
+                        ? styles.selected
+                        : ''
+                    }`}
                     onClick={() => filterResults('land_success', false)}
                   >
                     False

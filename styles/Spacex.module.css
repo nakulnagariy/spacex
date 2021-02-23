@@ -1,5 +1,10 @@
 .pageWrapper {
-  background-color: #eaeaea;
+  background: linear-gradient(
+    281deg,
+    rgba(2, 0, 36, 1) 0%,
+    rgb(74 74 112) 35%,
+    rgb(219 249 255 / 40%) 100%
+  );
   padding: 15px;
 }
 
@@ -40,7 +45,7 @@
 }
 
 .title {
-  font-size: 3rem;
+  font-size: 2.5rem;
   padding: 15px;
   margin: 0;
 }
@@ -77,6 +82,10 @@
   transform: scale(0.99);
 }
 
+.selected {
+  background: #74bf5a;
+}
+
 .subtitle {
   font-size: 2rem;
   margin: 10px 0 10px 15px;
@@ -94,15 +103,18 @@
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
+  justify-content: space-evenly;
 }
 
 .card {
   background: #ffffff;
-  margin: 0px 10px 10px;
+  margin: 0 10px 10px;
   padding: 15px;
   flex-direction: column;
   border-radius: 10px;
-  flex-basis: 23%;
+  flex-basis: 22%;
+  flex-grow: 1;
+  text-align: center;
 }
 
 .card img {
@@ -115,8 +127,14 @@
   color: rebeccapurple;
 }
 
+.card .missionTitle {
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: rebeccapurple;
+}
+
 .card .contentTitle {
-  font-size: 1.5rem;
+  font-size: 1rem;
   font-weight: bold;
   color: #000;
 }
@@ -125,11 +143,19 @@
   text-align: center;
 }
 
-@media screen and (max-width: 992px) {
-  .pageWrapper {
-    /* background-color: red; */
+@media screen and (max-width: 1240px) {
+  .card {
+    background: #ffffff;
+    display: flex;
+    margin: 0 10px 10px;
+    padding: 15px;
+    flex-direction: column;
+    border-radius: 10px;
+    flex-basis: 40%;
   }
+}
 
+@media screen and (max-width: 992px) {
   .column {
     flex: auto;
   }
@@ -185,12 +211,14 @@
 
   .card .content {
     color: rebeccapurple;
-    font-size: 2rem;
+    font-size: 1.5rem;
+  }
+
+  .card .missionTitle {
+    font-size: 3rem;
   }
 
   .card .contentTitle {
-    font-size: 2rem;
-    font-weight: bold;
-    color: #000;
+    font-size: 3rem;
   }
 }
