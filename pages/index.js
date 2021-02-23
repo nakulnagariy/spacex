@@ -1,5 +1,4 @@
-import React, { useState, useEffect, useCallback } from 'react'
-import { useRouter } from 'next/router'
+import React, { useState, useEffect } from 'react'
 import Meta from '../components/Meta'
 import styles from '../styles/Spacex.module.css'
 
@@ -24,6 +23,7 @@ const spacex = ({ missions }) => {
     setLaunchYears(missionYears)
   }, [missions])
 
+  // logic for applying the filter and keep the old filter alive
   const filterResults = async (filter, filterWith) => {
     if (filter === 'reset') {
       missions = await fetchData(`${API_URL}`)
@@ -49,6 +49,7 @@ const spacex = ({ missions }) => {
     setallMissions(missions)
   }
 
+  // render the actual cards with all info
   const renderMissions = () => {
     return allMissions && allMissions.length === 0 ? (
       <div className={styles.card} key='reset'>
@@ -102,6 +103,7 @@ const spacex = ({ missions }) => {
     )
   }
 
+  // make the button selection to indicate the user what filters applied
   const getSelectedButton = (param) => {
     const selected = appliedFilters.filter(
       (selectedBtn) => selectedBtn.filter === param
@@ -115,6 +117,7 @@ const spacex = ({ missions }) => {
     return selectedBtn
   }
 
+  // render the mission years (unique) button for filtering the results
   const renderMissionYears = () => {
     if (launchYears && launchYears.length > 0) {
       return launchYears.map((year) => (
@@ -133,7 +136,13 @@ const spacex = ({ missions }) => {
 
   return (
     <div>
-      <Meta title='Space-X' />
+      <Meta
+        title='SpaceX'
+        keywords={'spacex rocket mission, science, rocket science, technology'}
+        description={
+          'Developed a front-end application which would help users list and browse all launches by SpaceX program.'
+        }
+      />
       <div className={styles.pageWrapper}>
         <h1 className={styles.title}>Spacex Launch Programs</h1>
         <div className={styles.row}>
@@ -221,6 +230,7 @@ const spacex = ({ missions }) => {
   )
 }
 
+// triggers on each request
 export const getServerSideProps = async () => {
   const missions = await fetchData(API_URL)
   if (!missions) {
