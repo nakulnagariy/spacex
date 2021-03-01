@@ -7,11 +7,7 @@ let API_URL = `https://api.spaceXdata.com/v3/launches?limit=100`
 const fetchData = async (api) => {
   const res = await fetch(api)
   const missions = await res.json()
-  if (missions && missions.length > 0) {
-    return missions
-  } else {
-    return Promise.reject(new Error(mission))
-  }
+  return missions
 }
 
 const spacex = ({ missions }) => {
@@ -46,7 +42,6 @@ const spacex = ({ missions }) => {
 
   // logic for applying the filter and keep the old filter alive
   const filterResults = async (filter, filterWith) => {
-    console.log('in filterResults::::=>', filter, filterWith)
     if (filter === 'reset') {
       missions = await fetchData(`${API_URL}`)
       setAppliedFilters([])
@@ -64,9 +59,6 @@ const spacex = ({ missions }) => {
     let combineFilter
     // Do not call the service the same filter were applied
     if (!sameFilter) {
-      // combineFilter = sameFilter
-      //   ? [...newFilter, { filter, filterWith }]
-      //   : [...appliedFilters, { filter, filterWith }]
       combineFilter = [...newFilter, { filter, filterWith }]
       localStorage.setItem('appliedFilters', JSON.stringify(combineFilter))
       setAppliedFilters(combineFilter)
@@ -98,7 +90,12 @@ const spacex = ({ missions }) => {
       </div>
     ) : (
       allMissions.map((mission) => (
-        <div className={styles.card} key={mission.flight_number}>
+        <div
+          className={styles.card}
+          key={`${Math.floor(Math.random() * Math.floor(5))}-${
+            mission.flight_number
+          }`}
+        >
           <img
             alt={mission.mission_name}
             src={mission.links.mission_patch}
