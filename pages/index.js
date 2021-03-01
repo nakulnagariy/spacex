@@ -7,7 +7,11 @@ let API_URL = `https://api.spaceXdata.com/v3/launches?limit=100`
 const fetchData = async (api) => {
   const res = await fetch(api)
   const missions = await res.json()
-  return missions
+  if (missions && missions.length > 0) {
+    return missions
+  } else {
+    return Promise.reject(new Error(mission))
+  }
 }
 
 const spacex = ({ missions }) => {
@@ -23,30 +27,61 @@ const spacex = ({ missions }) => {
     setLaunchYears(missionYears)
   }, [missions])
 
+  // Keep the filters persistance even if the page reloads, using localStorage
+  useEffect(async () => {
+    let appliedFilter =
+      (localStorage.getItem('appliedFilters') &&
+        JSON.parse(localStorage.getItem('appliedFilters'))) ||
+      []
+
+    let queryStringsFilters = ''
+    appliedFilter &&
+      appliedFilter.map((filters) => {
+        queryStringsFilters += `&${filters.filter}=${filters.filterWith}`
+      })
+    setAppliedFilters(appliedFilter)
+    missions = await fetchData(`${API_URL}${queryStringsFilters}`)
+    setallMissions(missions)
+  }, [])
+
   // logic for applying the filter and keep the old filter alive
   const filterResults = async (filter, filterWith) => {
+    console.log('in filterResults::::=>', filter, filterWith)
     if (filter === 'reset') {
       missions = await fetchData(`${API_URL}`)
+      setAppliedFilters([])
       setallMissions(missions)
+      localStorage.clear()
       return
     }
-    const sameFilter = appliedFilters.some((appFil) => appFil.filter === filter)
+    const sameFilter = appliedFilters.some(
+      (appFil) => appFil.filter === filter && appFil.filterWith === filterWith
+    )
     const newFilter = appliedFilters.filter(
       (appFil) => appFil.filter !== filter
     )
-    const combineFilter = sameFilter
-      ? [...newFilter, { filter, filterWith }]
-      : [...appliedFilters, { filter, filterWith }]
-    setAppliedFilters(combineFilter)
 
-    let queryStringsFilters = ''
-    combineFilter &&
-      combineFilter.map((filters) => {
-        queryStringsFilters += `&${filters.filter}=${filters.filterWith}`
-      })
+    let combineFilter
+    // Do not call the service the same filter were applied
+    if (!sameFilter) {
+      // combineFilter = sameFilter
+      //   ? [...newFilter, { filter, filterWith }]
+      //   : [...appliedFilters, { filter, filterWith }]
+      combineFilter = [...newFilter, { filter, filterWith }]
+      localStorage.setItem('appliedFilters', JSON.stringify(combineFilter))
+      setAppliedFilters(combineFilter)
 
-    missions = await fetchData(`${API_URL}${queryStringsFilters}`)
-    setallMissions(missions)
+      let queryStringsFilters = ''
+      combineFilter &&
+        combineFilter.map((filters) => {
+          queryStringsFilters += `&${filters.filter}=${filters.filterWith}`
+        })
+
+      missions = await fetchData(`${API_URL}${queryStringsFilters}`)
+      setallMissions(missions)
+    } else {
+      return
+    }
   }
 
   // render the actual cards with all info
@@ -207,6 +242,18 @@ const spacex = ({ missions }) => {
                     onClick={() => filterResults('land_success', false)}
                   >
                     False
+                  </button>
+                </div>
+              </div>
+              <h2 className={styles.subtitle}>Reset Filters</h2>
+              <div className={styles.underline} />
+              <div className={styles.row}>
+                <div className={styles.card} key='reset'>
+                  <button
+                    className={styles.button}
+                    onClick={() => filterResults('reset')}
+                  >
+                    Reset
                   </button>
                 </div>
               </div>
