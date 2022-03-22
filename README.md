@@ -1,3 +1,4 @@
+![Version](https://img.shields.io/github/package-json/v/nakulnagariy/spacex)
 # Here is the preview of the hiring challage for XT
 
 ![spacex launch program react project](./public/desktop.png 'Spacex program')
